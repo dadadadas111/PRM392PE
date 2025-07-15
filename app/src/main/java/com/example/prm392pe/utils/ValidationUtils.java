@@ -9,8 +9,57 @@ import java.util.regex.Pattern;
  */
 public class ValidationUtils {
     
+    // Current password pattern: Strong password with all character types
+    // ^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,}$
+    // - At least 8 characters
+    // - At least 1 digit
+    // - At least 1 lowercase letter
+    // - At least 1 uppercase letter  
+    // - At least 1 special character from [@#$%^&+=]
+    // - No whitespace allowed
     private static final Pattern PASSWORD_PATTERN = 
             Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
+    
+    /* Alternative PASSWORD_PATTERN Examples:
+     * 
+     * 1. BASIC PASSWORD (minimum 6 characters, any characters allowed):
+     * Pattern.compile("^.{6,}$")
+     * 
+     * 2. ALPHANUMERIC ONLY (8+ chars, letters and numbers only):
+     * Pattern.compile("^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}$")
+     * 
+     * 3. MEDIUM STRENGTH (8+ chars, at least 1 letter and 1 number):
+     * Pattern.compile("^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$")
+     * 
+     * 4. STRONG WITH FLEXIBLE SPECIAL CHARS (any non-alphanumeric as special):
+     * Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$")
+     * 
+     * 5. ENTERPRISE LEVEL (12+ chars, all types, specific special chars):
+     * Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).{12,}$")
+     * 
+     * 6. NO CONSECUTIVE REPEATING CHARS (prevents "aaa", "111", etc.):
+     * Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?!.*(.)\\1{2,}).{8,}$")
+     * 
+     * 7. MUST START WITH LETTER (common in some systems):
+     * Pattern.compile("^[a-zA-Z](?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{7,}$")
+     * 
+     * 8. MODERATE (6-20 chars, at least 1 letter, 1 number, optional special):
+     * Pattern.compile("^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{6,20}$")
+     * 
+     * Regex Components Explanation:
+     * ^ = Start of string
+     * $ = End of string
+     * (?=.*[0-9]) = Positive lookahead for at least one digit
+     * (?=.*[a-z]) = Positive lookahead for at least one lowercase letter
+     * (?=.*[A-Z]) = Positive lookahead for at least one uppercase letter
+     * (?=.*[@#$%^&+=]) = Positive lookahead for at least one special character
+     * (?=\S+$) = Positive lookahead ensuring no whitespace (all non-whitespace chars)
+     * .{8,} = Any character, minimum 8 times
+     * .{6,20} = Any character, between 6 and 20 times
+     * [a-zA-Z0-9] = Character class: any letter or digit
+     * (?!.*(.)\\1{2,}) = Negative lookahead preventing 3+ consecutive same characters
+     * [^a-zA-Z0-9] = Negated character class: any non-alphanumeric character
+     */
     
     /**
      * Check if email is valid
