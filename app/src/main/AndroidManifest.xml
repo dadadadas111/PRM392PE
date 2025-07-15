@@ -9,6 +9,9 @@
         android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <!-- Hardware features (optional) -->
     <uses-feature android:name="android.hardware.camera" android:required="false" />
@@ -40,6 +43,29 @@
             android:name=".activities.UtilsDemoActivity"
             android:exported="true"
             android:parentActivityName=".MainActivity" />
+        
+        <!-- Service Demo Activity -->
+        <activity
+            android:name=".activities.ServiceDemoActivity"
+            android:exported="true"
+            android:parentActivityName=".MainActivity" />
+        
+        <!-- Services -->
+        <service
+            android:name=".services.BackgroundService"
+            android:enabled="true"
+            android:exported="false" />
+        
+        <service
+            android:name=".services.ForegroundService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+        
+        <service
+            android:name=".services.BoundService"
+            android:enabled="true"
+            android:exported="false" />
         
     </application>
 

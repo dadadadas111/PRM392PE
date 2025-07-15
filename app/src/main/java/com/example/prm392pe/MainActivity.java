@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.prm392pe.activities.UtilsDemoActivity;
+import com.example.prm392pe.activities.ServiceDemoActivity;
 import com.example.prm392pe.fragments.ProductListFragment;
 import com.example.prm392pe.fragments.SettingsFragment;
 import com.example.prm392pe.utils.SharedPreferencesUtils;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_show_products).setOnClickListener(v -> showProductListFragment());
         findViewById(R.id.btn_show_settings).setOnClickListener(v -> showSettingsFragment());
         findViewById(R.id.btn_utils_demo).setOnClickListener(v -> openUtilsDemo());
+        findViewById(R.id.btn_service_demo).setOnClickListener(v -> openServiceDemo());
         findViewById(R.id.btn_add_product).setOnClickListener(v -> addNewProduct());
         findViewById(R.id.btn_clear_products).setOnClickListener(v -> clearProducts());
         findViewById(R.id.btn_export_settings).setOnClickListener(v -> exportSettings());
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     .setMessage("Welcome to PRM392PE Test Preparation App!\n\nThis app demonstrates:\n" +
                             "• RecyclerView with custom adapter\n" +
                             "• Fragment management\n" +
+                            "• Android Services (Background, Foreground, Bound)\n" +
                             "• Image handling & intents\n" +
                             "• File storage (internal/external)\n" +
                             "• SharedPreferences\n" +
@@ -112,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (itemId == R.id.menu_utils) {
             openUtilsDemo();
+            return true;
+        } else if (itemId == R.id.menu_services) {
+            openServiceDemo();
             return true;
         } else if (itemId == R.id.menu_about) {
             showAboutDialog();
@@ -171,6 +177,11 @@ public class MainActivity extends AppCompatActivity {
     
     private void openUtilsDemo() {
         Intent intent = new Intent(this, UtilsDemoActivity.class);
+        startActivity(intent);
+    }
+    
+    private void openServiceDemo() {
+        Intent intent = new Intent(this, ServiceDemoActivity.class);
         startActivity(intent);
     }
     
